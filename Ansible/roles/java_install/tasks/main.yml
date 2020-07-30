@@ -1,0 +1,9 @@
+---
+- name: Install Epel Release
+  yum:
+    name: "{{ epel_release }}"
+
+- name: Remote RPM install jdk8 with yum
+  yum:
+    name: "{{ java_source }}"
+    state: present

@@ -1,0 +1,51 @@
+- name: Create groups
+  group:
+    name: "{{ item.name }}"
+    gid: "{{ item.gid }}"
+    state: present
+  with_items: "{{ dummy_vars_groups }}"
+
+
+- name: Add all privilages to administrators group
+  lineinfile:
+    path: /etc/sudoers
+    line: "{{ item }}"
+  with_items:
+    - "%dummy_admin ALL=(ALL)      NOPASSWD: ALL"
+
+
+- name: Create user
+  user:
+    name: "{{ item.name }}"
+    comment: "{{ item.comment }}"
+    shell: /bin/bash
+    create_home: yes
+    home: "/home/{{ item.name }}"
+    password: "{{ item.password }}"
+    group: "{{ item.group }}" #this is the primary group
+    groups: "{{ item.groups }}" #those are the other group memberships
+    uid: "{{ item.uid }}"
+  with_items: "{{ dummy_vars_users }}"
+
+
+- name: Remove bash_history file
+  file:
+    path: /root/.bash_history
+    state: absent
+
+
+- name: Create bash_history folder
+  file:
+    path: /root/.bash_history
+    state: directory
+    state: directory
+    mode: '755'
+
+
+- name: Add bashrc template                                                                                               
+  copy:
+    src: bashrc                                                                                                             
+    dest: /root/.bashrc                                                                                                     
+    mode: "644"
+    owner: root                                                                                                             
+    group: root                                                                                                                                                                                                                                               

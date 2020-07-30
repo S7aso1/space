@@ -1,0 +1,2 @@
+epel_release: "epel-release"
+java_source: "java-1.8.0-openjdk"

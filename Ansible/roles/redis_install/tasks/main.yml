@@ -1,0 +1,53 @@
+---
+- name: install epel and redis
+  yum:
+    name:
+      - epel-release
+    state: present
+
+- name: install epel and redis
+  yum:
+    name:
+      - redis
+      - firewalld
+    state: present
+
+- name: start firewalld
+  service:
+    name: firewalld
+    state: started
+    enabled: yes
+
+- name: create a backup "redis.conf"
+  copy:
+    src: "{{ redis_path }}/redis.conf"
+    dest: "{{ redis_path }}/redis.conf.bak"
+    remote_src: yes
+
+- name: apply redis template
+  template:
+   src: redis.conf.j2
+   dest: /etc/redis.conf
+   owner: redis
+   group: root
+   mode: "0644"
+
+- name: open port
+  firewalld:
+    state: enabled
+    port: 6379/tcp
+    permanent: yes
+  when: redis_master in ansible_all_ipv4_addresses
+
+- name: open port other
+  firewalld:
+    state: enabled
+    port: 6380/tcp
+    permanent: yes
+  when: redis_master not in ansible_all_ipv4_addresses
+
+- name: start redis-service and make it auto runnable on reboot
+  service:
+    name: redis
+    state: started
+    enabled: yes

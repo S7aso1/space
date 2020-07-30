@@ -1,0 +1,17 @@
+---
+- name: ensure that the logrotate package is installed
+  tags: logrotate
+  yum:
+    name: logrotate
+    state: present
+
+- name: create logrotate configuration file
+    file:
+      path: "{{ tomcat_logrotate }}"
+      state: touch
+      mode: "{{ lr_confmode }}"
+
+- name: copy the configuration inside the logrotate configuration file
+    copy:
+      src: catalina_logrotate
+      dest: "{{ tomcat_logrotate }}"

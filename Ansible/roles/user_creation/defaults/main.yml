@@ -1,0 +1,26 @@
+---
+dummy_vars_groups:
+  - name: dummy
+    gid: 1234
+
+  - name: dummy_admin
+    gid: 1235
+
+dummy_vars_users:
+  - name: dummyUser1
+    comment: "iops.notifications@dummy.com"
+    password: $6$EyxMa9CGV$Tn6Vf2mGwagLx.7cuqDChelaBxT5aKo61J/RCaMny8AKvqALipG1XC83hJS72844m7EAkTTSZvjrlYEdbf4.F1 
+    groups: dummy 
+    uid: 2001
+
+  - name: dummyUser2
+    comment: "iops.notifications@dummy.com"
+    password: $6$EyxMa9CGV$Tn6Vf2mGwagLx.7cuqDChelaBxT5aKo61J/RCaMny8AKvqALipG1XC83hJS72844m7EAkTTSZvjrlYEdbf4.F1  
+    groups: dummy 
+    uid: 2002
+
+  - name: dummyUser3
+    comment: "iops.notifications@dummy.com"
+    password: $6$EyxMa9CGV$Tn6Vf2mGwagLx.7cuqDChelaBxT5aKo61J/RCaMny8AKvqALipG1XC83hJS72844m7EAkTTSZvjrlYEdbf4.F1 
+    groups: dummy 
+    uid: 2003

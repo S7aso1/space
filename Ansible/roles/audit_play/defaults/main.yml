@@ -1,0 +1,6 @@
+---
+rh_release: /etc/redhat-release
+java_path: /usr/bin/java
+tomcat_path: /opt/tomcat/bin
+nginx_path: /usr/sbin/nginx
+redis_path: /etc/redis.conf

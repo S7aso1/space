@@ -1,0 +1,34 @@
+- name: start scan
+  shell: |
+    echo "Machine name: $(hostname)"
+    echo "OS version: $(cat {{ rh_release }} )"
+    echo "Memory: $(free -mt | awk NR==2 | awk '{print $2}')"
+    echo "CPU cores: $( cat /proc/cpuinfo | grep processor | wc -l)"
+    df -Ph
+    if [ -f "{{ java_path }}" ]
+    then
+    echo "Java version: $(java -version 2>&1 | awk NR==2)"
+    else
+    echo "There is no java installed."
+    fi
+    if [ -f "{{ tomcat_path }}/catalina.sh" ]
+    then
+    echo "Tomcat version: $( {{ tomcat_path }}/version.sh | grep 'Server version' | cut -d ' ' -f4)"
+    else
+    echo "There is no tomcat installed."
+    fi
+    if [ -f "{{ nginx_path }}" ]
+    then
+    nginx -v 2>&1
+    else
+    echo "There is no nginx installed."
+    fi
+    if [ -f "{{ redis_path }}" ]
+    then
+    redis-cli -v && redis-server -v
+    else
+    echo "There is no redis installed."
+    fi
+  register: output
+- debug:
+    msg: "{{ output.stdout_lines|list }}"

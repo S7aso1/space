@@ -1,0 +1,48 @@
+- name: Download and extract nmon
+  unarchive:
+    src: "{{ nmon_httpsource }}"
+    dest: /usr/local
+    remote_src: yes
+  register: unarchive_output
+
+- name: Gather output from extract
+  debug:
+    var: "{{ item.result }}"
+  with_items:
+    - { result: unarchive_output.extract_results.rc }
+    - { result: unarchive_output.dest }
+
+
+- name: Move file to an executable dir
+  copy:
+    src: /usr/local/nmon_x86_64_centos7
+    dest: /usr/bin/nmon
+    owner: root
+    group: root
+    mode: "755"
+    remote_src: yes
+    
+- name: Search for unnecessary files
+  find:
+    paths: /usr/local
+    patterns: nmon*
+  register: junk_nmon
+
+- name: Remove unnecessary files
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  with_items: "{{ junk_nmon.files }}"
+
+
+- name: Create nmon_stats directory if it's missing
+  file:
+    path: /opt/nmon_stats
+    state: directory
+    mode: '0750'
+
+- name: If /var/spool/cron is absent then create it
+  lineinfile:
+    path: /var/spool/cron/root
+    line: "0 0 * * * /usr/bin/nmon -f -m  /opt/nmon_stats"
+    create: yes 

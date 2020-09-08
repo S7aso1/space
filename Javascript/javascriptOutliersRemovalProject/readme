@@ -1,0 +1,5 @@
+Javascript project: Identify and remove outliers from experimental data
+Input Data:         Comes from measurement station that gets information about temperature, humidity, pressure, etc. and saves it in CSV format. 
+Problem in Data:    Issue with the data is that it has alot of values that can be considered outliers. The graph that we draw without filtering the data is unreliable.
+Fix:                Created algorithm that sets IQR (inter-quartile-range) and deletes data that is outside of that scope.
+Output Data:        After filtration the data gets processed in CSV files depending on the name of the physical component. EG: temperatures.csv , pressures.csv , etc.

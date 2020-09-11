@@ -1,1 +1,3 @@
-lel
+Python project:     Convert XML data to CSV
+Input Data:         Data is pulled via Pan-OS XML API and stored in xml.
+Task:               The task is to convert the XML data into CSV formatted file so it can be imported in a Spreadsheet.

@@ -1,43 +1,38 @@
-//const MongoClient = require('mongodb').MongoClient
-const {MongoClient, ObjectID} = require('mongodb') //destructuring
+// const MongoClient = require('mongodb').MongoClient;
+const {MongoClient, ObjectID} = require('mongodb');
 
-MongoClient.connect('mongodb://localhost:27017/TodoApp',(err, db) =>{
-    if(err){
-        return console.log('unable to connect to mongo db server')
+MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
+  if (err) {
+    return console.log('Unable to connect to MongoDB server');
+  }
+  console.log('Connected to MongoDB server');
+
+  // db.collection('Todos').findOneAndUpdate({
+  //   _id: new ObjectID('57bc4b15b3b6a3801d8c47a2')
+  // }, {
+  //   $set: {
+  //     completed: true
+  //   }
+  // }, {
+  //   returnOriginal: false
+  // }).then((result) => {
+  //   console.log(result);
+  // });
+
+  db.collection('Users').findOneAndUpdate({
+    _id: new ObjectID('57abbcf4fd13a094e481cf2c')
+  }, {
+    $set: {
+      name: 'Andrew'
+    },
+    $inc: {
+      age: 1
     }
-    console.log('connected to mongo db server')
+  }, {
+    returnOriginal: false
+  }).then((result) => {
+    console.log(result);
+  });
 
-    // db.collection('Todos').findOneAndUpdate({
-    //     _id: new ObjectID('5f8d663de6a41413c0552b5c')
-    // }, {
-    //     $set: {
-    //         completed: true
-    //     }
-    // }, {
-    //     returnOriginal: false
-    // }).then((result) => {
-    //     console.log(result)
-    // })
-
-
-    db.collection('Users').findOneAndUpdate({
-        _id: new ObjectID('5f8d616f22e0ad2dc8a85649')
-    }, {
-        $set: {
-            name: 'Stanislav'
-        },
-            $inc: {
-                age: 1
-            }
-        }, {
-        returnOriginal: false
-    }).then((result) => {
-        console.log(result)
-    })
-
-
-
-
-
-    //db.close()
-})
+  // db.close();
+});

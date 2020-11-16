@@ -7,7 +7,7 @@
 
 - 👯 I’m looking to collaborate on **Anything related to Front end, Back end or DevOps topics**
 
-- 🤝 I’m looking for a **Coding Mentor**
+- 🤝 I’m looking for  **Coding Mentor or Teammates**
 
 - 📫 How to reach me **stanislaviliev057@gmail.com**
 
